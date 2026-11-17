@@ -1,0 +1,17 @@
+[Unit]
+Description=Asset-web: приём заявок с сайта
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/asset-lead/lead.py
+EnvironmentFile=-/etc/asset-lead.env
+DynamicUser=yes
+StateDirectory=asset-lead
+MemoryMax=60M
+Restart=on-failure
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+
+[Install]
+WantedBy=multi-user.target

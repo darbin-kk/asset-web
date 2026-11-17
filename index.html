@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="ru" data-theme="asset" data-tab="glavnaya">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Ассет: сайты, приложения и автоматизация для бизнеса</title>
+  <meta name="description" content="Студия Ассет делает сайты, приложения и автоматизацию для бизнеса: от простого рабочего сайта до нестандартной идеи, которую нужно разработать с нуля.">
+  <meta name="theme-color" content="#e6ebf2">
+  <link rel="canonical" href="https://asset-web.ru/">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ru_RU">
+  <meta property="og:site_name" content="Ассет">
+  <meta property="og:title" content="Ассет: сайты, приложения и автоматизация для бизнеса">
+  <meta property="og:description" content="От простого рабочего сайта до идеи, которую ещё никто не собирал.">
+  <meta property="og:url" content="https://asset-web.ru/">
+  <meta property="og:image" content="https://asset-web.ru/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <script>
+    (function () {
+      var d = document.documentElement;
+      d.classList.add('js');
+      var tabs = ['glavnaya', 'uslugi', 'process', 'raboty', 'kontakty'];
+      var h = location.hash.replace('#', '');
+      if (tabs.indexOf(h) > -1) d.setAttribute('data-tab', h);
+    })();
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Ассет",
+    "url": "https://asset-web.ru/",
+    "description": "Сайты, приложения и автоматизация для бизнеса",
+    "areaServed": "RU"
+  }
+  </script>
+  <link rel="stylesheet" href="./src/styles.css">
+</head>
+<body>
+  <a class="skip" href="#content">Перейти к содержанию</a>
+
+  <div class="stage" aria-hidden="true">
+    <canvas id="scene"></canvas>
+  </div>
+
+  <header class="top">
+    <a class="brand glass" href="#glavnaya" data-go="glavnaya" aria-label="Ассет, на главную">Ассет</a>
+    <nav class="tabs glass" aria-label="Разделы сайта">
+      <span class="tabs__thumb" aria-hidden="true"></span>
+      <a href="#glavnaya" data-go="glavnaya">Главная</a>
+      <a href="#uslugi" data-go="uslugi">Услуги</a>
+      <a href="#process" data-go="process">Процесс</a>
+      <a href="#raboty" data-go="raboty">Работы</a>
+      <a href="#kontakty" data-go="kontakty">Контакты</a>
+    </nav>
+    <a class="btn btn--primary top__cta" href="#kontakty" data-go="kontakty">Обсудить проект</a>
+  </header>
+
+  <main id="content">
+    <section class="panel" id="glavnaya" aria-labelledby="h-glavnaya">
+      <div class="hero">
+        <h1 id="h-glavnaya" tabindex="-1">Сайты, приложения и автоматизация под ваш бизнес</h1>
+        <p class="lead">От простого рабочего сайта до идеи, которую ещё никто не собирал. Выберите свою сферу, и этот сайт перестроится под неё.</p>
+        <div class="actions">
+          <a class="btn btn--primary" href="#kontakty" data-go="kontakty">Обсудить проект</a>
+          <a class="btn btn--ghost" href="#uslugi" data-go="uslugi">Что мы делаем</a>
+        </div>
+
+        <fieldset class="fit glass">
+          <legend>Покажите на моём бизнесе</legend>
+          <div class="fit__chips">
+            <label><input type="radio" name="theme" value="asset" checked><span>Ассет</span></label>
+            <label><input type="radio" name="theme" value="restaurant"><span>Ресторан</span></label>
+            <label><input type="radio" name="theme" value="production"><span>Производство</span></label>
+            <label><input type="radio" name="theme" value="shop"><span>Магазин</span></label>
+            <label><input type="radio" name="theme" value="services"><span>Услуги</span></label>
+          </div>
+          <p class="fit__text" id="fit-text" aria-live="polite">Это наш собственный стиль. Нажмите на любую сферу: цвета, шрифты и 3D-сцена поменяются за секунду. Так же гибко мы подходим к задаче клиента.</p>
+        </fieldset>
+      </div>
+
+      <div class="modes">
+        <article class="mode glass">
+          <h2>Быстро и по делу</h2>
+          <p>Нужен сайт или приложение, которое просто выполняет свою задачу: принимает заявки, продаёт, записывает клиентов. Соберём без лишнего и запустим.</p>
+        </article>
+        <article class="mode glass">
+          <h2>Сложно и впервые</h2>
+          <p>Есть идея, для которой нет готового решения. Разберём её, проверим на прототипе и доведём до работающего продукта.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" id="uslugi" aria-labelledby="h-uslugi">
+      <h1 id="h-uslugi" tabindex="-1">Что мы делаем</h1>
+      <p class="lead">Два направления: разработка и автоматизация. Берём задачу целиком, от первого эскиза до поддержки после запуска.</p>
+      <div class="services">
+        <article class="service glass">
+          <h2>Сайты</h2>
+          <p>От страницы для приёма заявок до сервиса с личными кабинетами.</p>
+          <ul>
+            <li>Прототип: показываем, как всё будет работать, до начала разработки</li>
+            <li>Внешняя часть: то, что видит и нажимает клиент</li>
+            <li>Серверная часть: логика, данные, оплата</li>
+            <li>Запуск и хостинг</li>
+            <li>Поддержка и обновления</li>
+          </ul>
+        </article>
+        <article class="service glass">
+          <h2>Приложения</h2>
+          <p>Для телефонов, компьютеров и браузера.</p>
+          <ul>
+            <li>Android и iOS</li>
+            <li>Windows и Linux</li>
+            <li>Расширения для браузера</li>
+            <li>Веб-приложения, которые открываются по ссылке</li>
+          </ul>
+        </article>
+        <article class="service glass">
+          <h2>Автоматизация</h2>
+          <p>Убираем ручную работу там, где её может делать программа.</p>
+          <ul>
+            <li>ИИ-ассистенты, которые работают с вашими данными</li>
+            <li>Связки между системами, которые у вас уже есть</li>
+            <li>Внутренние сервисы и CRM под ваши процессы</li>
+            <li>Запуск моделей на вашем сервере, если данные нельзя отдавать наружу</li>
+          </ul>
+        </article>
+      </div>
+      <div class="cta-row">
+        <p>Не нашли свою задачу в списке? Расскажите о ней, и мы скажем, возьмёмся ли.</p>
+        <a class="btn btn--primary" href="#kontakty" data-go="kontakty">Обсудить проект</a>
+      </div>
+    </section>
+
+    <section class="panel" id="process" aria-labelledby="h-process">
+      <h1 id="h-process" tabindex="-1">Как мы работаем</h1>
+      <p class="lead">Пять шагов. После каждого вы видите результат и решаете, идти ли дальше.</p>
+      <ol class="steps">
+        <li class="glass">
+          <h2>Разбор задачи</h2>
+          <p>Изучаем задачу, данные и ограничения. На выходе схема решения, состав работ, риски и стоимость следующего шага. Вывод «делать не стоит» тоже результат.</p>
+        </li>
+        <li class="glass">
+          <h2>Прототип</h2>
+          <p>Собираем работающее ядро: главный сценарий и минимальный интерфейс. Цель: проверить пользу до больших вложений.</p>
+        </li>
+        <li class="glass">
+          <h2>Продукт</h2>
+          <p>Делаем версию, которой можно пользоваться: интерфейс, серверная часть, база данных, вход для пользователей, тесты, запуск и документация.</p>
+        </li>
+        <li class="glass">
+          <h2>Внедрение</h2>
+          <p>Подключаем к вашим системам, настраиваем безопасность и наблюдение за работой, помогаем команде освоиться.</p>
+        </li>
+        <li class="glass">
+          <h2>Сопровождение</h2>
+          <p>Следим за работой, исправляем, ускоряем и добавляем функции по отзывам пользователей.</p>
+        </li>
+      </ol>
+      <div class="cta-row">
+        <p>Первый шаг небольшой: расскажите о задаче.</p>
+        <a class="btn btn--primary" href="#kontakty" data-go="kontakty">Обсудить проект</a>
+      </div>
+    </section>
+
+    <section class="panel" id="raboty" aria-labelledby="h-raboty">
+      <h1 id="h-raboty" tabindex="-1">Работы</h1>
+      <p class="lead">Раздел наполняется. Скоро здесь появятся первые кейсы: задача, решение и результат.</p>
+      <!-- Портфолио. Чтобы добавить кейс: скопируйте блок <article class="case"> и замените класс case--empty на свой текст. -->
+      <div class="cases">
+        <article class="case case--empty">
+          <h2>Место для кейса</h2>
+          <p>Задача клиента, что мы сделали и что изменилось.</p>
+        </article>
+        <article class="case case--empty">
+          <h2>Место для кейса</h2>
+          <p>Задача клиента, что мы сделали и что изменилось.</p>
+        </article>
+        <article class="case case--empty">
+          <h2>Место для вашего проекта</h2>
+          <p>Он может стать одним из первых в этом списке.</p>
+          <a class="btn btn--ghost" href="#kontakty" data-go="kontakty">Обсудить проект</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="panel" id="kontakty" aria-labelledby="h-kontakty">
+      <h1 id="h-kontakty" tabindex="-1">Расскажите о задаче</h1>
+      <p class="lead">Три поля. Опишите своими словами, техническое задание не нужно.</p>
+      <div class="contact">
+        <form class="form glass" id="lead-form" novalidate>
+          <div class="field">
+            <label for="f-name">Как к вам обращаться</label>
+            <input id="f-name" name="name" type="text" autocomplete="name" required maxlength="80">
+          </div>
+          <div class="field">
+            <label for="f-contact">Телефон, Telegram или почта</label>
+            <input id="f-contact" name="contact" type="text" autocomplete="tel" required maxlength="120">
+          </div>
+          <div class="field">
+            <label for="f-task">Что нужно сделать</label>
+            <textarea id="f-task" name="task" rows="4" required maxlength="2000"></textarea>
+          </div>
+          <div class="field field--trap" aria-hidden="true">
+            <label for="f-site">Не заполняйте это поле</label>
+            <input id="f-site" name="website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <label class="consent">
+            <input type="checkbox" name="consent" required>
+            <span>Согласен на обработку персональных данных по <a href="./policy.html">политике</a></span>
+          </label>
+          <button class="btn btn--primary" type="submit">Отправить заявку</button>
+          <p class="form__status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+        <aside class="direct" id="direct" hidden>
+          <h2>Или напишите напрямую</h2>
+          <ul id="direct-list"></ul>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>© 2026 Ассет. ИП Масасина Мария Олеговна, ИНН 263408470065, ОГРНИП 325508100149462</p>
+    <a href="./policy.html">Политика обработки персональных данных</a>
+  </footer>
+
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
