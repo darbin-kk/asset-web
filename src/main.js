@@ -1,14 +1,16 @@
 import { CONFIG } from './config.js';
 
 const root = document.documentElement;
-const TABS = ['glavnaya', 'uslugi', 'process', 'raboty', 'kontakty'];
-const TITLES = {
-  glavnaya: 'Ассет: сайты, приложения и автоматизация для бизнеса',
-  uslugi: 'Услуги | Ассет',
-  process: 'Как мы работаем | Ассет',
-  raboty: 'Работы | Ассет',
-  kontakty: 'Обсудить проект | Ассет',
+// У каждого раздела свой адрес. Переход между ними без перезагрузки, чтобы 3D-сцена не начиналась заново.
+const PAGES = {
+  glavnaya: { path: '/', title: 'Ассет: сайты, приложения и автоматизация для бизнеса' },
+  uslugi: { path: '/uslugi/', title: 'Услуги: сайты, приложения и автоматизация | Ассет' },
+  process: { path: '/process/', title: 'Как мы работаем: пять шагов от разбора задачи до сопровождения | Ассет' },
+  raboty: { path: '/raboty/', title: 'Работы | Ассет' },
+  kontakty: { path: '/kontakty/', title: 'Обсудить проект | Ассет' },
 };
+const pageFromPath = (path) =>
+  Object.keys(PAGES).find((k) => PAGES[k].path === path || PAGES[k].path === `${path}/`) || 'glavnaya';
 const FIT_TEXT = {
   asset: 'Это наш собственный стиль. Нажмите на любую сферу: цвета, шрифты и 3D-сцена поменяются за секунду. Так же гибко мы подходим к задаче клиента.',
   restaurant: 'Ресторану можем сделать сайт с меню и бронированием столов, приложение с программой лояльности, автоматический приём заказов и отчёты по смене.',
@@ -20,27 +22,41 @@ const FIT_TEXT = {
 let scene = null;
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-/* ---------- Вкладки ---------- */
-const nav = document.querySelector('.tabs');
-const navLinks = [...nav.querySelectorAll('a')];
+/* ---------- Навигация: главное меню слева и нижняя панель на телефоне ---------- */
+const menu = document.querySelector('.menu');
+const tabbar = document.querySelector('.tabbar');
+const navLinks = [...document.querySelectorAll('.menu a, .tabbar a')];
+const canonical = document.querySelector('link[rel="canonical"]');
+const ogUrl = document.querySelector('meta[property="og:url"]');
 
-function moveThumb() {
-  const active = nav.querySelector('[aria-current="page"]');
-  if (!active) return;
-  nav.style.setProperty('--thumb-x', `${active.offsetLeft}px`);
-  nav.style.setProperty('--thumb-w', `${active.offsetWidth}px`);
-  nav.classList.add('is-ready');
+function moveThumbs() {
+  const m = menu.querySelector('[aria-current="page"]');
+  menu.classList.toggle('has-current', !!m);
+  if (m) {
+    menu.style.setProperty('--thumb-y', `${m.offsetTop}px`);
+    menu.style.setProperty('--thumb-h', `${m.offsetHeight}px`);
+  }
+  const t = tabbar.querySelector('[aria-current="page"]');
+  tabbar.classList.toggle('has-current', !!t);
+  if (t) {
+    tabbar.style.setProperty('--thumb-x', `${t.offsetLeft}px`);
+    tabbar.style.setProperty('--thumb-w', `${t.offsetWidth}px`);
+  }
 }
 
-function showTab(name, { focus = false } = {}) {
-  if (!TABS.includes(name)) name = 'glavnaya';
-  root.dataset.tab = name;
+function showPage(name, { focus = false } = {}) {
+  if (!PAGES[name]) name = 'glavnaya';
+  root.dataset.page = name;
   navLinks.forEach((a) => {
     if (a.dataset.go === name) a.setAttribute('aria-current', 'page');
     else a.removeAttribute('aria-current');
   });
-  document.title = TITLES[name];
-  moveThumb();
+  document.title = PAGES[name].title;
+  const url = `https://asset-web.ru${PAGES[name].path}`;
+  canonical?.setAttribute('href', url);
+  ogUrl?.setAttribute('content', url);
+  // Меню на главной крупнее: пересчитываем положение подложки после перестройки.
+  requestAnimationFrame(moveThumbs);
   window.scrollTo(0, 0);
   if (scene) scene.setTab(name);
   if (focus) document.getElementById(`h-${name}`)?.focus({ preventScroll: true });
@@ -48,16 +64,23 @@ function showTab(name, { focus = false } = {}) {
 
 document.addEventListener('click', (e) => {
   const link = e.target.closest('[data-go]');
-  if (!link) return;
+  if (!link || e.ctrlKey || e.metaKey || e.shiftKey || e.button !== 0) return;
   e.preventDefault();
   const name = link.dataset.go;
-  if (location.hash !== `#${name}`) history.pushState(null, '', `#${name}`);
-  showTab(name, { focus: true });
+  if (location.pathname !== PAGES[name].path) history.pushState(null, '', PAGES[name].path);
+  showPage(name, { focus: true });
 });
-window.addEventListener('popstate', () => showTab(location.hash.slice(1) || 'glavnaya'));
-window.addEventListener('resize', moveThumb);
-document.fonts?.ready.then(moveThumb);
-showTab(root.dataset.tab);
+window.addEventListener('popstate', () => showPage(pageFromPath(location.pathname)));
+window.addEventListener('resize', moveThumbs);
+document.fonts?.ready.then(moveThumbs);
+// При загрузке подложка встаёт на место сразу, без анимации; анимация — только при переходах.
+menu.classList.add('no-anim');
+tabbar.classList.add('no-anim');
+showPage(root.dataset.page);
+setTimeout(() => {
+  menu.classList.remove('no-anim');
+  tabbar.classList.remove('no-anim');
+}, 600);
 
 /* ---------- Стилистики под бизнес ---------- */
 const fitText = document.getElementById('fit-text');
@@ -74,7 +97,8 @@ function setTheme(name) {
   fitText.textContent = FIT_TEXT[name] || FIT_TEXT.asset;
   syncSceneColors();
   if (scene) scene.setShape(name);
-  requestAnimationFrame(moveThumb);
+  try { localStorage.setItem('asset-theme', name); } catch {}
+  requestAnimationFrame(moveThumbs);
   // На телефоне сцена стоит вверху страницы: возвращаемся к ней, чтобы было видно превращение.
   if (scene && window.innerWidth <= 760 && window.scrollY > 80) {
     window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
@@ -83,7 +107,13 @@ function setTheme(name) {
 
 document.querySelectorAll('input[name="theme"]').forEach((input) => {
   input.addEventListener('change', () => input.checked && setTheme(input.value));
+  // Выбранная стилистика сохраняется между страницами и визитами.
+  if (input.value === root.dataset.theme) {
+    input.checked = true;
+    fitText.textContent = FIT_TEXT[input.value] || FIT_TEXT.asset;
+  }
 });
+syncSceneColors();
 
 /* ---------- 3D: грузим после основного содержимого ---------- */
 function canRun3D() {
@@ -102,7 +132,7 @@ function start3D() {
   import('./scene.js')
     .then(({ createScene }) => {
       scene = createScene(document.getElementById('scene'), { reduced });
-      scene.setTab(root.dataset.tab);
+      scene.setTab(root.dataset.page);
       syncSceneColors();
       if (root.dataset.theme !== 'asset') scene.setShape(root.dataset.theme);
       document.querySelector('.stage').classList.add('is-ready');

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://asset-web.ru/</loc></url>
+  <url><loc>https://asset-web.ru/uslugi/</loc></url>
+  <url><loc>https://asset-web.ru/process/</loc></url>
+  <url><loc>https://asset-web.ru/raboty/</loc></url>
+  <url><loc>https://asset-web.ru/kontakty/</loc></url>
   <url><loc>https://asset-web.ru/policy.html</loc></url>
 </urlset>
