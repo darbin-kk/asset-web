@@ -1,6 +1,6 @@
 import {
   WebGLRenderer, Scene, PerspectiveCamera, BufferGeometry, BufferAttribute,
-  Points, ShaderMaterial, Color, Group,
+  Points, ShaderMaterial, Color, Group, LinearSRGBColorSpace,
 } from 'three';
 import { SHAPES } from './shapes.js';
 
@@ -201,8 +201,10 @@ export function createScene(canvas, { reduced = false } = {}) {
       if (!reduced) scatter = 1;
     },
     setColors(a, b) {
-      if (a) colorA.set(a.trim());
-      if (b) colorB.set(b.trim());
+      // Шейдер выводит цвет как есть, поэтому берём значения из CSS без перевода в линейное пространство,
+      // иначе оранжевый #ff7a1a на экране становится красным.
+      if (a) colorA.setStyle(a.trim(), LinearSRGBColorSpace);
+      if (b) colorB.setStyle(b.trim(), LinearSRGBColorSpace);
     },
   };
 }
